@@ -1,5 +1,7 @@
+
 from flask import Flask, render_template, request, redirect, url_for
 import json
+import Backend as bk
 
 app = Flask(__name__)
 
@@ -66,3 +68,20 @@ def lesson2():
 @app.route('/lesson3')
 def lesson3():
     return render_template('lesson3.html')
+
+
+@app.route('/process_frame', methods=['POST'])
+def process_frame():
+    data = request.json
+    frame_data_url = data.get('frame', '')
+
+    # Extract the base64-encoded image data from the data URL
+    _, encoded = frame_data_url.split(',', 1)
+    image_data = encoded.encode('ascii')  # Python 3
+
+    # convert to cv2 image
+    image = bk.base64_to_cv2_image(image_data)
+    return bk.process_image(image)
+
+if __name__ == '__main__':
+    app.run(debug=True)

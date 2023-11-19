@@ -3,6 +3,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 import tensorflow as tf
+import base64
 
 # Mediapipe setup
 mp_holistic = mp.solutions.holistic # Holistic model
@@ -15,6 +16,20 @@ words = {"hello": 1, "thank you": 1}
 model = tf.keras.models.load_model("model.h5")
 
 # --------Helper Functions-------- #
+
+# Convert base64 image to cv2 image
+def base64_to_cv2_image(base64_img):
+    # Convert base64 image to bytes
+    img_bytes = base64.b64decode(base64_img)
+
+    # Convert bytes to numpy array
+    img_array = np.frombuffer(img_bytes, dtype=np.uint8)
+
+    # Convert numpy array to cv2 image
+    img = cv2.imdecode(img_array, flags=cv2.IMREAD_COLOR)
+
+    # Return cv2 image
+    return img
 
 # Get results from frame
 def mediapipe_detection(image, model):
@@ -60,10 +75,10 @@ def draw_landmarks(image, results):
 # --------Main-------- #
 
 # Function for reading frames
-cap = cv2.VideoCapture(0)
-while(cap):
+#cap = cv2.VideoCapture(0)
+#while(cap):
     # Get webcam feed
-    ret, image = cap.read()
+#    ret, image = cap.read()
 
     # Make detections
     #image, results = mediapipe_detection(image, holistic)
@@ -72,15 +87,15 @@ while(cap):
     #draw_landmarks(image, results)
 
     # Draw predictions
-    try:
-        cv2.putText(image, process_image(image), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
+#    try:
+#        cv2.putText(image, process_image(image), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
     # No predictions
-    except:
-        pass
+#    except:
+#        pass
 
     # Show to screen
-    cv2.imshow('frame', image)
+#    cv2.imshow('frame', image)
 
     # Break loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+#    if cv2.waitKey(1) & 0xFF == ord('q'):
+#        break
