@@ -8,7 +8,7 @@ import time
 # each word has multiple parts
 
 # dictionary containing each word, and number of parts
-words = {"hello": 2, "goodbye": 2, "please": 1, "thank you": 2, "yes": 2, "no": 2}
+words = {"hello": 1, "goodbye": 1, "please": 1, "thank you": 1, "yes": 1, "no": 1}
 
 # create a new directory for each word in "data" folder
 # if the word has multiple parts, create a new directory for each part
