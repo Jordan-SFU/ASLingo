@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('/static/Fonts/Poppins/Poppins-Medium.ttf') format('truetype'),
+         url('/static/Fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .navbar {
     background-color: #333;
     overflow: hidden;
