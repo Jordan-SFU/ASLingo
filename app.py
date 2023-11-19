@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
 import Backend as bk
 
 
@@ -55,12 +53,9 @@ def process_frame():
     _, encoded = frame_data_url.split(',', 1)
     image_data = encoded.encode('ascii')  # Python 3
 
-    # Save the image to a file or process it using Pillow
-    with open('captured_frame.png', 'wb') as f:
-        f.write(image_data)
-    prediction = bk.process_image('captured_frame.png')
-    print(prediction)
-    return 'Frame received and processed!'
+    # convert to cv2 image
+    image = bk.base64_to_cv2_image(image_data)
+    return bk.process_image(image)
 
 if __name__ == '__main__':
     app.run(debug=True)
