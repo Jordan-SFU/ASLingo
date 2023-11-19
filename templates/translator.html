@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <video id="userVideo" autoplay loop style="display: none;"></video>
+
+    <script>
+        // Function to start the camera stream
+        function startCamera() {
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    var video = document.getElementById('userVideo');
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+                })
+                .catch(function (err) {
+                    console.error('Error accessing the camera:', err);
+                });
+        }
+
+        // Function to stop the camera stream
+        function stopCamera() {
+            var video = document.getElementById('userVideo');
+            video.pause();
+            if (video.srcObject) {
+                var tracks = video.srcObject.getTracks();
+                tracks.forEach(track => track.stop());
+                video.srcObject = null;
+            }
+            video.style.display = 'none';
+        }
+
+        // Check if on the translator page and start/stop camera accordingly
+        document.addEventListener('DOMContentLoaded', function () {
+            var isTranslatorPage = window.location.pathname.includes('/translator'); // Adjust this based on your page structure
+            if (isTranslatorPage) {
+                startCamera();
+            } else {
+                stopCamera();
+            }
+        });
+    </script>
+
+</div>  
+{% endblock %}
