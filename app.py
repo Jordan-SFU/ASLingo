@@ -1,7 +1,4 @@
 from flask import Flask, render_template, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import UserMixin
-import Backend as bk
 
 
 app = Flask(__name__)
@@ -58,8 +55,7 @@ def process_frame():
     # Save the image to a file or process it using Pillow
     with open('captured_frame.png', 'wb') as f:
         f.write(image_data)
-    prediction = bk.process_image('captured_frame.png')
-    print(prediction)
+
     return 'Frame received and processed!'
 
 if __name__ == '__main__':

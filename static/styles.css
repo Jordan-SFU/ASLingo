@@ -62,3 +62,7 @@ body {
     height: 300px; /* Adjust the value as needed */
     object-fit: cover; /* Adjust the value as needed */
 }
+
+.card-text {
+    color: white;
+}
