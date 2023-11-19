@@ -1,4 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from PIL import Image
+import Backend as bk
 
 app = Flask(__name__)
 
@@ -17,3 +19,11 @@ def login():
 @app.route('/translator')
 def translator():
     return render_template('translator.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    file = request.files['file']
+    img = Image.open(file.stream)
+
+    prediction = bk.process_image(img)
+    return {'prediction': prediction}
