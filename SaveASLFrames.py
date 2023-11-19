@@ -9,12 +9,11 @@ import time
 
 # dictionary containing each word, and number of parts
 words = {"hello": 2, "goodbye": 2, "please": 1, "thank you": 2, "yes": 2, "no": 2}
-wordsSmall = {"hello": 1, "thank you": 1}
 
 # create a new directory for each word in "data" folder
 # if the word has multiple parts, create a new directory for each part
 try:
-    for word in wordsSmall:
+    for word in words:
         if words[word] > 1:
             for i in range(1, words[word]):
                 os.mkdir("data/" + word + str(i))
@@ -37,12 +36,12 @@ def mediapipe_detection(image, model):
 cap = cv2.VideoCapture(0)
 
 # iterate through each word and word part
-for word in wordsSmall:
+for word in words:
     for i in range(1, words[word] + 1):
         time.sleep(5)
         print("Please sign " + word + " " + str(i))
         # iterate through each frame
-        for j in range(1, 11):
+        for j in range(1, 21):
             time.sleep(1)
             # Get webcam feed
             ret, frame = cap.read()
