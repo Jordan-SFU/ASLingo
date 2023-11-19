@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container">
-    <video id="userVideo" autoplay loop style="display: none;"></video>
+    <video id="userVideo" autoplay loop style="display: none; border-radius: 20px; transform: scaleX(-1);"></video>
 
     <script>
         // Function to start the camera stream
@@ -40,6 +40,5 @@
             }
         });
     </script>
-
 </div>  
 {% endblock %}
