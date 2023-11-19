@@ -29,7 +29,7 @@ def login():
             if user['username'] == username and user['password'] == password:
                 return redirect(url_for('learning'))
         return render_template('login.html', error='Invalid username or password')
-    return render_template('homePage.html')
+    return render_template('login.html')
 
 
 @app.route('/register', methods=['GET', 'POST'])
