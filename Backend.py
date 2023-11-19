@@ -49,6 +49,7 @@ def process_image(image):
         word = list(words.keys())[prediction]
 
         # Return word
+        print(word)
         return word
 
 # Draw landmarks
@@ -60,27 +61,31 @@ def draw_landmarks(image, results):
 # --------Main-------- #
 
 # Function for reading frames
-cap = cv2.VideoCapture(0)
-while(cap):
-    # Get webcam feed
-    ret, image = cap.read()
+'''
+with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+    cap = cv2.VideoCapture(0)
+    while(cap):
+        # Get webcam feed
+        ret, image = cap.read()
 
-    # Make detections
-    #image, results = mediapipe_detection(image, holistic)
+        # Make detections
+        image, results = mediapipe_detection(image, holistic)
 
-    # Draw landmarks
-    #draw_landmarks(image, results)
+        # Draw landmarks
+        draw_landmarks(image, results)
 
-    # Draw predictions
-    try:
-        cv2.putText(image, process_image(image), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
-    # No predictions
-    except:
-        pass
+        # Draw predictions
+        try:
+            pass
+            #cv2.putText(image, process_image(image), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
+        # No predictions
+        except:
+            pass
 
-    # Show to screen
-    cv2.imshow('frame', image)
+        # Show to screen
+        cv2.imshow('frame', image)
 
-    # Break loop
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        # Break loop
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+'''
