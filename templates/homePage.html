@@ -2,68 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ASLingo</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
 </head>
-<body>
-    <div class="container">
-        <h1>ASLingo</h1>
-        <p>ASLingo is a website that will have a video of a person doing the gesture and a description of how to do the gesture. The website will also have a quiz section where the user can test their knowledge of the gestures. The website will be built using HTML, CSS, JavaScript, and Python.</p>
-        <button onclick="window.location.href='login.php'">Login</button>
-        <button onclick="window.location.href='signup.php'">Sign Up</button>
-    </div>
-</body>
+    <body>
+        <h1>Login authentication in flask</h1>
+        <a href="{{ url_for('login') }}">Login</a><br>
+        <a href="{{ url_for('register') }}">Register</a>
+    </body>
 </html>
-```
-
-```php
-<!-- Path: templates/login.php -->
-<!-- create a login page that allows users to login with their username and password -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Login</h1>
-        <form method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" name="submit" value="Login">
-        </form>
-    </div>
-</body>
-</html>
-```
-
-```php
-<!-- Path: templates/signup.php -->
-<!-- create a signup page that allows users to create a new account with a username and password -->
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <div class="container">
-        <h1>Sign Up</h1>
-        <form method="post">
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="submit" name="submit" value="Sign Up">
-        </form>
-    </div>
-</body>
-</html>
-```
-
-```php
-<!-- Path: templates/dashboard.php -->
-<!-- create a dashboard page that allows users to view their flashcards and create new ones -->
