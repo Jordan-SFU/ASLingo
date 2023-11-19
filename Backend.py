@@ -27,23 +27,29 @@ def mediapipe_detection(image, model):
     return image, results
 
 # Make predictions
-def predict(image, model):
-    # Convert landmarks to numpy array
-    landmarks = np.array([[res.x, res.y, res.z] for res in results.pose_landmarks.landmark]).flatten() if results.pose_landmarks else np.zeros(33*3)
-    landmarks = np.concatenate((landmarks, np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)), axis=0)
-    landmarks = np.concatenate((landmarks, np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)), axis=0)
+def process_image(image):
+    model = tf.keras.models.load_model("model.h5")
 
-    # Make predictions
-    predictions = model.predict(np.array([landmarks]))
+    with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
+        # Get mediapipe detection
+        image, results = mediapipe_detection(image, holistic)
 
-    # Get the index of the prediction
-    prediction = np.argmax(predictions[0])
+        # Convert landmarks to numpy array
+        landmarks = np.array([[res.x, res.y, res.z] for res in results.pose_landmarks.landmark]).flatten() if results.pose_landmarks else np.zeros(33*3)
+        landmarks = np.concatenate((landmarks, np.array([[res.x, res.y, res.z] for res in results.left_hand_landmarks.landmark]).flatten() if results.left_hand_landmarks else np.zeros(21*3)), axis=0)
+        landmarks = np.concatenate((landmarks, np.array([[res.x, res.y, res.z] for res in results.right_hand_landmarks.landmark]).flatten() if results.right_hand_landmarks else np.zeros(21*3)), axis=0)
 
-    # Get the word from the index
-    word = list(words.keys())[prediction]
+        # Make predictions
+        predictions = model.predict(np.array([landmarks]))
 
-    # Return word
-    return word
+        # Get the index of the prediction
+        prediction = np.argmax(predictions[0])
+
+        # Get the word from the index
+        word = list(words.keys())[prediction]
+
+        # Return word
+        return word
 
 # Draw landmarks
 def draw_landmarks(image, results):
@@ -55,27 +61,26 @@ def draw_landmarks(image, results):
 
 # Function for reading frames
 cap = cv2.VideoCapture(0)
-with mp_holistic.Holistic(min_detection_confidence=0.5, min_tracking_confidence=0.5) as holistic:
-    while(cap):
-        # Get webcam feed
-        ret, frame = cap.read()
+while(cap):
+    # Get webcam feed
+    ret, image = cap.read()
 
-        # Make detections
-        image, results = mediapipe_detection(frame, holistic)
+    # Make detections
+    #image, results = mediapipe_detection(image, holistic)
 
-        # Draw landmarks
-        draw_landmarks(image, results)
+    # Draw landmarks
+    #draw_landmarks(image, results)
 
-        # Draw predictions
-        try:
-            cv2.putText(image, predict(image, model), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
-        # No predictions
-        except:
-            pass
+    # Draw predictions
+    try:
+        cv2.putText(image, process_image(image), (20, 70), cv2.FONT_HERSHEY_SIMPLEX, 3, (0, 255, 0), 2, cv2.LINE_AA)
+    # No predictions
+    except:
+        pass
 
-        # Show to screen
-        cv2.imshow('frame', image)
+    # Show to screen
+    cv2.imshow('frame', image)
 
-        # Break loop
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    # Break loop
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
