@@ -13,3 +13,7 @@ def learning():
 @app.route('/login')
 def login():
     return render_template('homePage.html')
+
+@app.route('/translator')
+def translator():
+    return render_template('translator.html')
