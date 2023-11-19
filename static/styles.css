@@ -1,15 +1,27 @@
-/* styles.css */
-
 body {
     margin: 0;
+    padding: 10px;
+    font-size: 1rem;
+    font-family: "Poppins";
+    color: white;
+    font-weight: bold;
+    background-color: #242526;
 }
 
 .navbar {
     background-color: #333;
     overflow: hidden;
     position: relative;
-    width: 100%;
+    width: 99vw;
+    padding: 10px;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    margin-right: 10px;
 }
 
 .navbar-brand {
@@ -20,18 +32,12 @@ body {
     font-family: "poppins";
     display: block;
     color: white;
-    text-align: center;
-    padding: 10px;
+    text-align: left; /* Align text to the left within the .navbar-brand element */
     text-decoration: none;
 }
 
 
-/* Optionally, add a class for the logo to align it to the left */
-.logo {
-    margin-right: auto; /* Move the logo to the left */
-}
-
-body {
+/* body {
     padding: 10px;
     font-size: 1rem;
     font-family: "Trebuchet MS";
@@ -39,5 +45,4 @@ body {
     color: white;
     font-weight: bold;
     background-color: #242526;
-
-}
+} */

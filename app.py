@@ -7,5 +7,8 @@ def index():
     return render_template('home.html')
 
 @app.route('/about')
-def about():
-    return render_template('about.html')
+def learning():
+    return render_template('learning.html')
+
+if __name__ == "__main__":
+    app.run(debug=True)
