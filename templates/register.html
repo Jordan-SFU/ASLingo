@@ -1,7 +1,17 @@
 {% extends 'layout.html' %}
 {% block title %}Register{% endblock %}
 {% block body %}
+    <form action="{{url_for('register')}}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username"><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password"><br>
+        <input type="submit" value="Register">
+    </form>
     <h1>Register Page</h1>
     Already have an account?
     <a href="{{url_for('login')}}">Login!</a><br>
+    {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
 {% endblock %}
