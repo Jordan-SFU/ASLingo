@@ -1,28 +1,24 @@
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(function(stream) {
-    /* use the stream */
-    var video = document.querySelector('video');
-    video.srcObject = stream;
-  })
-  .catch(function(err) {
-    /* handle the error */
-    console.log(err);
+function sendFrames() {
+  if (video.paused || video.ended) {
+      return;
+  }
+  var canvas = document.createElement('canvas');
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0);
+  var dataURL = canvas.toDataURL('image/jpeg', 0.5);
+  var data = dataURL.split(',')[1];
+
+  // Send a POST request to the server with the frame data
+  fetch('/process_frame', {
+      method: 'POST',
+      body: data
+  }).then(response => response.text())
+    .then(prediction => {
+      // Do something with the prediction
+      console.log(prediction);
   });
 
-  // Capture a frame from the video
-var canvas = document.createElement('canvas');
-canvas.getContext('2d').drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-
-// Convert the frame to a blob
-canvas.toBlob(function(blob) {
-  // Send the blob to the server
-  fetch('/predict', {
-    method: 'POST',
-    body: blob
-  })
-  .then(response => response.json())
-  .then(data => {
-    // Display the prediction
-    console.log(data.prediction);
-  });
-}, 'image/jpeg');
+  setTimeout(sendFrames, 1000 / 30);
+}
