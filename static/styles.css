@@ -1,12 +1,43 @@
-navbar {
-    background-color: #333;
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    text-align: center;
+/* styles.css */
+
+body {
+    margin: 0;
 }
 
-navbar-brand {
+.navbar {
+    background-color: #333;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.navbar-brand {
+    font-size: 25px;
+    background: -webkit-linear-gradient(#E32B1E, #EBAE71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "poppins";
+    display: block;
+    color: white;
     text-align: center;
+    padding: 10px;
+    text-decoration: none;
+}
+
+
+/* Optionally, add a class for the logo to align it to the left */
+.logo {
+    margin-right: auto; /* Move the logo to the left */
+}
+
+body {
+    padding: 10px;
+    font-size: 1rem;
+    font-family: "Trebuchet MS";
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    background-color: #242526;
+
 }
