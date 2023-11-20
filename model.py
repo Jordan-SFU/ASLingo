@@ -12,6 +12,7 @@ trainingLen = 10
 
 # Path to dataset
 DATADIR = "data"
+numLabels = len(os.listdir(DATADIR)) - 1
 
 # Each word part has 10 training numpy arrays (using ftn)
 # Assign labels to each numpy array
@@ -26,7 +27,7 @@ for word in os.listdir(DATADIR):
         try:
             # Add training data to list
             # Convert lists to numpy arrays
-            training_data_np = np.array(ftn.landmarkArray(ftn.poseToNumpy(word, word + "-" + str(i) + ".jpg"), ftn.handsToNumpy(word, word + "-" + str(i) + ".jpg")))
+            training_data_np = np.array(ftn.landmarkArray(ftn.poseToNumpy(word, word + "1-" + str(i) + ".jpg"), ftn.handsToNumpy(word, word + "1-" + str(i) + ".jpg")))
             training_data.append(training_data_np)
             print(training_data_np)
             # Add training labels
@@ -35,12 +36,15 @@ for word in os.listdir(DATADIR):
         except:
             pass
 
+
+print(numLabels, len(training_data), len(training_labels))
+
 # Set up tensorflow model
 model = tf.keras.models.Sequential()
 model.add(tf.keras.layers.Flatten())
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
 model.add(tf.keras.layers.Dense(128, activation=tf.nn.relu))
-model.add(tf.keras.layers.Dense(len(os.listdir(DATADIR)), activation=tf.nn.softmax))
+model.add(tf.keras.layers.Dense(numLabels, activation=tf.nn.softmax))
 
 # Compile model
 model.compile(optimizer='adam',
@@ -48,8 +52,8 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 
-
-training_data_np = np.array(training_data).reshape((trainingLen * len(os.listdir(DATADIR)), -1))
+# Reshape the data
+training_data_np = np.array(training_data).reshape((trainingLen * numLabels), -1)
 
 # Create a label (category) encoder object
 le = LabelEncoder()
@@ -61,7 +65,7 @@ le.fit(training_labels)
 training_labels_np = le.transform(training_labels) 
 
 # Train model
-model.fit(training_data_np, training_labels_np, epochs=100)
+model.fit(training_data_np, training_labels_np, epochs=250)
 
 # Save model
 model.save('model.h5')
@@ -70,7 +74,7 @@ model.save('model.h5')
 new_model = keras.models.load_model('model.h5')
 
 # Reshape the data
-training_data_np = np.array(training_data).reshape((trainingLen * len(os.listdir(DATADIR)), -1))
+training_data_np = np.array(training_data).reshape((trainingLen * numLabels), -1)
 
 # Make predictions
 predictions = new_model.predict(training_data_np)
