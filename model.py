@@ -12,7 +12,7 @@ trainingLen = 20
 
 # Path to dataset
 DATADIR = "data"
-numLabels = len(os.listdir(DATADIR)) - 1
+numLabels = len(os.listdir(DATADIR)) - 2
 
 # Each word part has 10 training numpy arrays (using ftn)
 # Assign labels to each numpy array
