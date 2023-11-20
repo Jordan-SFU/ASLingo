@@ -77,7 +77,6 @@ body {
 
 .long-card {
     list-style-type: none;
-    padding = 0;
     display: inline-block;
     position: absolute;
     bottom: 0;
@@ -97,4 +96,17 @@ body {
 .btn-primary:hover {
     background-color: #E64230;
     border-color: #E64230;
+}
+
+.login-text {
+    margin-top: 50px;
+    font-size: 100px;
+    background: -webkit-linear-gradient(#E32B1E, #EBAE71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "poppins";
+    display: block;
+    color: white;
+    text-align: center; /* Align text to the left within the .navbar-brand element */
+    text-decoration: none;
 }
