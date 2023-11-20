@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}Register{% endblock %}
-{% block body %}
+{% block content %}
     <form action="{{url_for('register')}}" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username"><br>

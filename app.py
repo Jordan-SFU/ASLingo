@@ -1,12 +1,8 @@
-
 from flask import Flask, render_template, request, redirect, url_for
 import json
 import Backend as bk
 
 app = Flask(__name__)
-
-jsonReader = open('data/database.json', 'r')
-jsonWriter = open('data/database.json', 'w')
 
 
 @app.route('/')
@@ -22,12 +18,15 @@ def learning():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        jsonReader = open('data/users.json', 'r')
         data = json.load(jsonReader)
         username = request.form['username']
         password = request.form['password']
         for user in data['users']:
             if user['username'] == username and user['password'] == password:
+                jsonReader.close()
                 return redirect(url_for('learning'))
+        jsonReader.close()
         return render_template('login.html', error='Invalid username or password')
     return render_template('login.html')
 
@@ -35,17 +34,22 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
+        jsonReader = open('data/users.json', 'r')
         data = json.load(jsonReader)
         username = request.form['username']
         password = request.form['password']
         for user in data['users']:
             if user['username'] == username:
+                jsonReader.close()
                 return render_template('register.html', error='Username already exists')
         data['users'].append({
             'username': username,
             'password': password
         })
+        jsonReader.close()
+        jsonWriter = open('data/users.json', 'w')
         jsonWriter.write(json.dumps(data))
+        jsonWriter.close()
         return redirect(url_for('learning'))
     return render_template('register.html')
 
@@ -82,6 +86,7 @@ def process_frame():
     # convert to cv2 image
     image = bk.base64_to_cv2_image(image_data)
     return bk.process_image(image)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
