@@ -24,7 +24,7 @@ training_labels = []
 if not os.path.isfile("training_data.npy"):
     # Iterate through each word
     for word in os.listdir(DATADIR):
-        if word != "database.json" or word == "users.json":
+        if word != "database.json" or word != "users.json":
             # Iterate through each training numpy array
             for i in range(1, trainingLen + 1):
                 try:
@@ -38,7 +38,7 @@ if not os.path.isfile("training_data.npy"):
 
 # add labels
 for word in os.listdir(DATADIR):
-    if word != "database.json" or word == "users.json":
+    if word != "database.json" or word != "users.json":
         for i in range(1, trainingLen + 1):
             training_labels.append(word)
 
