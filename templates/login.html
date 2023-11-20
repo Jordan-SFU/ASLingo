@@ -1,16 +1,29 @@
-{% extends 'layout.html' %} 
+{% extends 'loginLayout.html' %}
 {% block title %}
     Login
 {% endblock %}
 
 {% block content %}
-    <h1 class="login-text">Welcome to the future of American Sign Language.</h1>
+    <style>
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+    <h1>Login Page</h1>
     <form action="{{url_for('login')}}" method="post">
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username"><br>
+        <div class="input-container">
+            <input type="text" name="username" id="username">
+        </div>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password"><br>
-        <input type="submit" value="Login">
+        <div class="input-container">
+            <input type="password" name="password" id="password">
+        </div>
+        <div class="input-container">
+            <input type="submit" value="Login">
+        </div>
     </form>
     Don't have an account?
     <a href="{{url_for('register')}}">Sign up!</a><br>
