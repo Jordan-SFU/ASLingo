@@ -20,22 +20,31 @@ numLabels = len(os.listdir(DATADIR)) - 1
 training_data = []
 training_labels = []
 
-# Iterate through each word
-for word in os.listdir(DATADIR):
-    # Iterate through each training numpy array
-    for i in range(1, trainingLen + 1):
-        try:
-            # Add training data to list
-            # Convert lists to numpy arrays
-            training_data_np = np.array(ftn.landmarkArray(ftn.poseToNumpy(word, word + "1-" + str(i) + ".jpg"), ftn.handsToNumpy(word, word + "1-" + str(i) + ".jpg")))
-            training_data.append(training_data_np)
-            print(training_data_np)
-            # Add training labels
-            print(word)
-            training_labels.append(word)
-        except:
-            pass
+# if training_data.npy does not exist, train model
+if not os.path.isfile("training_data.npy"):
+    # Iterate through each word
+    for word in os.listdir(DATADIR):
+        # Iterate through each training numpy array
+        for i in range(1, trainingLen + 1):
+            try:
+                # Add training data to list
+                # Convert lists to numpy arrays
+                training_data_np = np.array(ftn.landmarkArray(ftn.poseToNumpy(word, word + "1-" + str(i) + ".jpg"), ftn.handsToNumpy(word, word + "1-" + str(i) + ".jpg")))
+                training_data.append(training_data_np)
+                print(training_data_np)
+            except:
+                pass
 
+# add labels
+for word in os.listdir(DATADIR):
+    for i in range(1, trainingLen + 1):
+        training_labels.append(word)
+
+# save training data and labels to file
+np.save('training_data.npy', training_data)
+
+# load training data and labels from file
+training_data = np.load('training_data.npy', allow_pickle=True)
 
 print(numLabels, len(training_data), len(training_labels))
 
@@ -65,7 +74,7 @@ le.fit(training_labels)
 training_labels_np = le.transform(training_labels) 
 
 # Train model
-model.fit(training_data_np, training_labels_np, epochs=250)
+model.fit(training_data_np, training_labels_np, epochs=100)
 
 # Save model
 model.save('model.h5')
