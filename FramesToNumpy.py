@@ -53,4 +53,5 @@ def handsToNumpy(word, image):
         return landmarks
     
 def landmarkArray(pose, hands):
-    return np.concatenate((pose, hands), axis=0)
+    return hands
+    #return np.concatenate((pose, hands), axis=0)
