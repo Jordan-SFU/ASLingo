@@ -11,6 +11,7 @@ mp_draw = mp.solutions.drawing_utils  # Drawing utilities
 
 # Dictionary containing each word, and number of parts to word
 words = {"hello": 1, "thank you": 1}
+alphabet = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": 1, "g": 1, "h": 1, "i": 1, "j": 1, "k": 1, "l": 1, "m": 1, "n": 1, "o": 1, "p": 1, "q": 1, "r": 1, "s": 1, "t": 1, "u": 1, "v": 1, "w": 1, "x": 1, "y": 1, "z": 1}
 
 # Set up tensorflow model
 model = tf.keras.models.load_model("model.h5")
@@ -70,7 +71,7 @@ def process_image(image):
         prediction = np.argmax(predictions[0])
 
         # Get the word from the index
-        word = list(words.keys())[prediction]
+        word = list(alphabet.keys())[prediction]
 
         # Return word
         return word

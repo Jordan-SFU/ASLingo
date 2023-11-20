@@ -9,12 +9,13 @@ import time
 
 # dictionary containing each word, and number of parts
 words = {"hello": 1, "goodbye": 1, "please": 1, "thank you": 1, "yes": 1, "no": 1}
+alphabet = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": 1, "g": 1, "h": 1, "i": 1, "j": 1, "k": 1, "l": 1, "m": 1, "n": 1, "o": 1, "p": 1, "q": 1, "r": 1, "s": 1, "t": 1, "u": 1, "v": 1, "w": 1, "x": 1, "y": 1, "z": 1}
 
 # create a new directory for each word in "data" folder
 # if the word has multiple parts, create a new directory for each part
 try:
-    for word in words:
-        if words[word] > 1:
+    for word in alphabet:
+        if alphabet[word] > 1:
             for i in range(1, words[word]):
                 os.mkdir("data/" + word + str(i))
         else:
@@ -36,8 +37,8 @@ def mediapipe_detection(image, model):
 cap = cv2.VideoCapture(0)
 
 # iterate through each word and word part
-for word in words:
-    for i in range(1, words[word] + 1):
+for word in alphabet:
+    for i in range(1, alphabet[word] + 1):
         time.sleep(5)
         print("Please sign " + word + " " + str(i))
         # iterate through each frame
@@ -50,7 +51,7 @@ for word in words:
             cv2.imshow('frame', frame)
 
             # Save frame every second
-            cv2.imwrite("data/" + word + str(i) + "/" + word + str(i) + "-" + str(j) + ".jpg", frame)
+            cv2.imwrite("data/" + word + "/" + word + str(i) + "-" + str(j) + ".jpg", frame)
 
             # Break loop
             if cv2.waitKey(1) & 0xFF == ord('q'):
