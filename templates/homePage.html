@@ -29,10 +29,9 @@
             cursor: pointer;
         }
     </style>
-    <h1>Welcome to ASLingo!</h1>
-    <p>ASLingo is a futuristic platform that leverages the power of artificial intelligence to help you learn American Sign Language (ASL) in a fun and engaging way.</p>
-    <p>With ASLingo, you can learn at your own pace, track your progress, and even interact with a virtual ASL tutor. Our platform uses advanced machine learning algorithms to provide personalized learning experiences, making it easier than ever to master ASL.</p>
-    <p>Join us and be a part of the future of language learning!</p>
-    <button class="btn-primary" onclick="location.href='{{ url_for('login') }}'" type="button">Login</button><br>
-    <button class="btn-primary" onclick="location.href='{{ url_for('register') }}'" type="button">Register</button>
+    <h1 class="login-text" style="font-weight: bold;">Welcome to the new way of learning American Sign Language.</h1>
+    <p style="margin:20px;" style="font-family: poppins;">ASLingo is a futuristic platform that leverages the power of artificial intelligence to help you learn American Sign Language (ASL) in a fun and engaging way.</p>
+    <p style="font-family: poppins;">Join us and be a part of the future of language learning!</p>
+    <button class="btn-primary" style="font-family: poppins; border-radius: 20px; border-style: solid;" onclick="location.href='{{ url_for('login') }}'" type="button">Login</button><br>
+    <button class="btn-primary" style="font-family: poppins; border-radius: 20px; border-style: solid; margin-bottom: 20px;" onclick="location.href='{{ url_for('register') }}'" type="button">Register</button>
 {% endblock %}
