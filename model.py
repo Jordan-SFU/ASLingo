@@ -8,11 +8,11 @@ import numpy as np
 from sklearn.preprocessing import LabelEncoder
 import keras
 
-trainingLen = 10
+trainingLen = 20
 
 # Path to dataset
 DATADIR = "data"
-numLabels = len(os.listdir(DATADIR)) - 1
+numLabels = len(os.listdir(DATADIR)) - 2
 
 # Each word part has 10 training numpy arrays (using ftn)
 # Assign labels to each numpy array
@@ -65,7 +65,7 @@ le.fit(training_labels)
 training_labels_np = le.transform(training_labels) 
 
 # Train model
-model.fit(training_data_np, training_labels_np, epochs=250)
+model.fit(training_data_np, training_labels_np, epochs=100)
 
 # Save model
 model.save('model.h5')
