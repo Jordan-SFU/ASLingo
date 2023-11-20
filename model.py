@@ -80,10 +80,10 @@ training_labels_np = le.transform(training_labels)
 model.fit(training_data_np, training_labels_np, epochs=100)
 
 # Save model
-model.save('model3.h5')
+model.save('model.h5')
 
 # Load the model
-new_model = keras.models.load_model('model3.h5')
+new_model = keras.models.load_model('model.h5')
 
 # Reshape the data
 training_data_np = np.array(training_data).reshape((trainingLen * numLabels), -1)

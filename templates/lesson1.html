@@ -5,6 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h1>Translator</h1>
+            <p id = "instructions">Sign the letter f to continue</p>
         </div>
     </div>
 <div class="container">
@@ -31,6 +32,10 @@
                             // Convert canvas to data URL
                             var dataURL = canvas.toDataURL('image/png');
 
+                            // sequence of letters to sign
+                            const letterToSign = ["f", "a"];
+                            var idx = 0;
+
                             // Send dataURL to the server using fetch
                             fetch('/process_frame', {
                                 method: 'POST',
@@ -44,6 +49,17 @@
                                 console.log(data);
                                 // Update the content of the text element with the result
                                 document.getElementById('translation').textContent = data;
+                                if(data == letterToSign[idx]){
+                                    document.getElementById('translation').textContent = "Correct!";
+                                    // update instructions
+                                    document.getElementById('instructions').textContent = "Sign the letter " + letterToSign[idx + 1] + " to continue";
+                                    if(idx == letterToSign.length - 1){
+                                        document.getElementById('instructions').textContent = "You're done!";
+                                    }
+                                    idx = idx + 1;
+                                } else{
+                                    document.getElementById('translation').textContent = "Try Again!";
+                                }
 })
                             .catch(error => console.error('Error:', error));
                         })
