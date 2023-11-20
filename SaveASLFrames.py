@@ -14,8 +14,8 @@ alphabet = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": 1, "g": 1, "h": 1, "i":
 # create a new directory for each word in "data" folder
 # if the word has multiple parts, create a new directory for each part
 try:
-    for word in alphabet:
-        if alphabet[word] > 1:
+    for word in words:
+        if words[word] > 1:
             for i in range(1, words[word]):
                 os.mkdir("data/" + word + str(i))
         else:
@@ -37,8 +37,8 @@ def mediapipe_detection(image, model):
 cap = cv2.VideoCapture(0)
 
 # iterate through each word and word part
-for word in alphabet:
-    for i in range(1, alphabet[word] + 1):
+for word in words:
+    for i in range(1, words[word] + 1):
         time.sleep(5)
         print("Please sign " + word + " " + str(i))
         # iterate through each frame

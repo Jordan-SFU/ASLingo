@@ -21,7 +21,7 @@ training_data = []
 training_labels = []
 
 # if training_data.npy does not exist, train model
-if not os.path.isfile("training_data.npy"):
+if not os.path.isfile("training_data3.npy"):
     # Iterate through each word
     for word in os.listdir(DATADIR):
         if word != "database.json" or word != "users.json":
@@ -33,20 +33,21 @@ if not os.path.isfile("training_data.npy"):
                     training_data_np = np.array(ftn.landmarkArray(ftn.poseToNumpy(word, word + "1-" + str(i) + ".jpg"), ftn.handsToNumpy(word, word + "1-" + str(i) + ".jpg")))
                     training_data.append(training_data_np)
                     print(training_data_np)
+                    print(word)
                 except:
                     pass
 
 # add labels
 for word in os.listdir(DATADIR):
-    if word != "database.json" or word != "users.json":
+    if word != "database.json" and word != "users.json":
         for i in range(1, trainingLen + 1):
             training_labels.append(word)
 
 # save training data and labels to file
-np.save('training_data.npy', training_data)
+np.save('training_data3.npy', training_data)
 
 # load training data and labels from file
-training_data = np.load('training_data.npy', allow_pickle=True)
+training_data = np.load('training_data3.npy', allow_pickle=True)
 
 print(numLabels, len(training_data), len(training_labels))
 
@@ -79,10 +80,10 @@ training_labels_np = le.transform(training_labels)
 model.fit(training_data_np, training_labels_np, epochs=100)
 
 # Save model
-model.save('model.h5')
+model.save('model3.h5')
 
 # Load the model
-new_model = keras.models.load_model('model.h5')
+new_model = keras.models.load_model('model3.h5')
 
 # Reshape the data
 training_data_np = np.array(training_data).reshape((trainingLen * numLabels), -1)
