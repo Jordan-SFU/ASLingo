@@ -85,3 +85,16 @@ body {
     width: 100%;
     text-align: center;
 }
+
+.fluff {
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: #E32B1E;
+    border-color: #E32B1E;
+}
+.btn-primary:hover {
+    background-color: #E64230;
+    border-color: #E64230;
+}
