@@ -21,10 +21,10 @@ training_data = []
 training_labels = []
 
 # if training_data.npy does not exist, train model
-if not os.path.isfile("training_data3.npy"):
+if not os.path.isfile("training_data.npy"):
     # Iterate through each word
     for word in os.listdir(DATADIR):
-        if word != "database.json" or word != "users.json":
+        if word != "database.json" and word != "users.json":
             # Iterate through each training numpy array
             for i in range(1, trainingLen + 1):
                 try:
@@ -44,10 +44,10 @@ for word in os.listdir(DATADIR):
             training_labels.append(word)
 
 # save training data and labels to file
-np.save('training_data3.npy', training_data)
+np.save('training_data.npy', training_data)
 
 # load training data and labels from file
-training_data = np.load('training_data3.npy', allow_pickle=True)
+training_data = np.load('training_data.npy', allow_pickle=True)
 
 print(numLabels, len(training_data), len(training_labels))
 

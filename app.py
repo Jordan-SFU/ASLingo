@@ -7,6 +7,11 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    return render_template('homePage.html')
+
+
+@app.route('/home')
+def home():
     return render_template('home.html')
 
 
@@ -25,7 +30,7 @@ def login():
         for user in data['users']:
             if user['username'] == username and user['password'] == password:
                 jsonReader.close()
-                return redirect(url_for('learning'))
+                return redirect(url_for('home'))
         jsonReader.close()
         return render_template('login.html', error='Invalid username or password')
     return render_template('login.html')
@@ -50,7 +55,7 @@ def register():
         jsonWriter = open('data/users.json', 'w')
         jsonWriter.write(json.dumps(data))
         jsonWriter.close()
-        return redirect(url_for('learning'))
+        return redirect(url_for('home'))
     return render_template('register.html')
 
 

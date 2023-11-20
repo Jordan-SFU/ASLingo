@@ -110,3 +110,16 @@ body {
     text-align: center; /* Align text to the left within the .navbar-brand element */
     text-decoration: none;
 }
+
+.translation {
+    margin-top: 50px;
+    font-size: 200px;
+    background: -webkit-linear-gradient(#E32B1E, #EBAE71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "poppins";
+    display: block;
+    color: white;
+    text-align: center; /* Align text to the left within the .navbar-brand element */
+    text-decoration: none;
+}
